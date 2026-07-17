@@ -1,0 +1,38 @@
+{
+  "linguistic_only": {
+    "structure": {
+      "f1": 0.7272,
+      "drop": 0.0064
+    },
+    "attack_markers": {
+      "f1": 0.7157,
+      "drop": 0.0179
+    },
+    "rule_references": {
+      "f1": 0.682,
+      "drop": 0.0516
+    },
+    "obfuscation": {
+      "f1": 0.7163,
+      "drop": 0.0173
+    }
+  },
+  "combined": {
+    "structure": {
+      "f1": 0.8603,
+      "drop": -0.0085
+    },
+    "attack_markers": {
+      "f1": 0.8519,
+      "drop": -0.0001
+    },
+    "rule_references": {
+      "f1": 0.8543,
+      "drop": -0.0025
+    },
+    "obfuscation": {
+      "f1": 0.8543,
+      "drop": -0.0025
+    }
+  }
+}
