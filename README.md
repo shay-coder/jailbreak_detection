@@ -8,7 +8,7 @@ the two yields the best performance while retaining interpretability.
 ## Dataset
 
 The [In-The-Wild Jailbreak Prompts](https://github.com/verazuo/jailbreak_llms)
-dataset (Shen et al., ACM CCS 2024) — 1,405 real jailbreak prompts collected
+dataset (Shen et al., ACM CCS 2024) , 1,405 real jailbreak prompts collected
 from Reddit, Discord, and prompt-sharing sites, paired with an equal random
 sample of regular prompts. The balanced dataset contains 2,748 prompts (50%
 jailbreak, 50% benign). It ships in `data/prompts.csv` and can be regenerated
@@ -18,7 +18,7 @@ from source with `python src/build_dataset.py`.
 
 Each prompt is converted into 14 features across four conceptual groups. All
 marker features are computed as **rates per 100 words** to control for the fact
-that jailbreak prompts tend to be much longer than benign ones — a raw count
+that jailbreak prompts tend to be much longer than benign ones , a raw count
 would otherwise conflate length with intent.
 
 | Group | Features |
@@ -31,9 +31,9 @@ would otherwise conflate length with intent.
 Three logistic-regression models are trained and compared on an identical 70/30
 stratified train/test split:
 
-- **TF-IDF** — 500 top terms (standard vocabulary baseline)
-- **Linguistic** — the 14 features above
-- **Combined** — both feature sets concatenated
+- **TF-IDF** , 500 top terms (standard vocabulary baseline)
+- **Linguistic** , the 14 features above
+- **Combined** , both feature sets concatenated
 
 ## Results
 
@@ -57,19 +57,19 @@ directly interpretable. The largest-magnitude weights:
 
 ![Feature importance](results/feature_importance.png)
 
-- **`avg_word_len` (negative)** — jailbreaks use shorter average words. They
+- **`avg_word_len` (negative)** : jailbreaks use shorter average words. They
   are written in plain, conversational, instruction-heavy language rather than
   technical vocabulary.
-- **`bracket_rate` (negative)** — contrary to initial expectation, heavy bracket
+- **`bracket_rate` (negative)** : contrary to initial expectation, heavy bracket
   notation was slightly more associated with *benign* structured prompts than
   jailbreaks in this dataset.
-- **`system_ref_rate` (positive, strongest attack signal)** — the more a prompt
+- **`system_ref_rate` (positive, strongest attack signal)** : the more a prompt
   references the model's own rules and policies ("OpenAI", "content policy",
   "guidelines"), the more likely it is a jailbreak. Jailbreaks must name the
   constraints they intend to override.
-- **`jailbreak_name_rate` (positive)** — named jailbreak personas (DAN,
+- **`jailbreak_name_rate` (positive)** : named jailbreak personas (DAN,
   Developer Mode, etc.) are a strong positive signal.
-- **`log_length` (positive)** — longer prompts are more likely to be jailbreaks.
+- **`log_length` (positive)** : longer prompts are more likely to be jailbreaks.
 
 ### Ablation study
 
@@ -84,7 +84,7 @@ which groups carry the signal:
 | Structure | 0.727 | 0.006 |
 
 Rule references are by far the most important group despite containing only two
-features — confirming that referencing the AI's own policies is the single
+features , confirming that referencing the AI's own policies is the single
 strongest linguistic signal of a jailbreak. All four groups contribute; none is
 redundant.
 
@@ -103,7 +103,7 @@ test set. Reading them reveals systematic, explainable failure modes.
 **False positives (benign prompts flagged as jailbreaks)** are dominated by
 legitimate custom-assistant prompts that share jailbreak surface features. A
 "RudeGPT" or "FauGPT" persona-definition prompt uses "act as", references
-"OpenAI", and assigns the model a name — the exact markers the model learned —
+"OpenAI", and assigns the model a name , the exact markers the model learned ,
 without any harmful intent. The features cannot distinguish a harmless novelty
 persona from a genuine jailbreak persona, because at the surface level they are
 written the same way.
@@ -111,7 +111,7 @@ written the same way.
 **False negatives (jailbreaks missed)** fall into two groups. The first is
 jailbreaks disguised as ordinary utility assistants (e.g. a "resume editing
 assistant" framing) that avoid overt attack language entirely. The second is
-short adversarial-suffix attacks — terse, garbled token sequences that carry no
+short adversarial-suffix attacks , terse, garbled token sequences that carry no
 persona or policy references and so score very low on every linguistic feature.
 These are a fundamentally different attack class from the verbose DAN-style
 prompts the feature set was designed around.
